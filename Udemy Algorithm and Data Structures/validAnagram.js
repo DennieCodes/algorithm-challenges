@@ -11,7 +11,7 @@
 */
 
 // Simple (naive) version
-// Type ON Notation: O(n2)
+// Type ON Notation: O(N^2)
 const validAnagram_naive = (strOne, strTwo) => {
   // Check length of both strings first
   if (strOne.length !== strTwo.length) return false;
@@ -33,7 +33,7 @@ const validAnagram_naive = (strOne, strTwo) => {
 };
 
 // Refactored version
-// TYPE O Notation: ON
+// TYPE O Notation: O(N)
 const validAnagram = (strOne, strTwo) => {
   if (strOne.length !== strTwo.length) return false;
 
