@@ -1,0 +1,19 @@
+{
+  "name": "challenges",
+  "version": "1.0.0",
+  "description": "This repository is a collection of my solutions to various algorithm challenges across different platforms including: [Codewars](https://www.codewars.com/),  [Leetcode](https://leetcode.com/), and [Colt Steele's Algorithm and Datastructures course on Udemy](https://www.udemy.com/course/js-algorithms-and-data-structures-masterclass/).",
+  "main": "test.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DennieCodes/algorithm-challenges.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DennieCodes/algorithm-challenges/issues"
+  },
+  "homepage": "https://github.com/DennieCodes/algorithm-challenges#readme"
+}
