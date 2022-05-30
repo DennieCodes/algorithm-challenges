@@ -26,3 +26,18 @@ class Book {
 		this.numCopies += numCopies;
 	}
 }
+
+class TechnicalBook extends Book {
+	constructor(title, author, ISBN, numCopies, edition) {
+		super(title, author, ISBN, numCopies);
+		this.edition = edition;
+	}
+
+	getEdition() {
+		return `The current version of this book is ${edition}`;
+	}
+}
+
+// Inherits book class, but will also take addition,
+// also have getEdition function which returns: The current version of this book is ${edition}
+// return using a template literal

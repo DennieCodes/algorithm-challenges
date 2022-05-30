@@ -25,6 +25,7 @@ const vegetarianItems = menu
 	.forEach((item) => {
 		let listItem = document.createElement('li');
 		listItem.appendChild(document.createTextNode(item.name));
+		// alt. listItem.textContent = item.name
 		menuNode.appendChild(listItem);
 	});
 
