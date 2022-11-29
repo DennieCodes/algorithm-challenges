@@ -1,3 +1,5 @@
+// Given an array, find the average of all contiguous subarrays of size ‘K’ in it.
+
 function find_averages_of_subarrays(K, arr) {
 	const result = []; // The array that will be returned containing averages of the subarray
 	let windowSum = 0.0;

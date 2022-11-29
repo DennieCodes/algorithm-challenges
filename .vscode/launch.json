@@ -9,14 +9,7 @@
 			"request": "launch",
 			"name": "Launch Program",
 			"skipFiles": ["<node_internals>/**"],
-			"program": "${workspaceFolder}\\Test.js"
-		},
-		{
-			"type": "pwa-chrome",
-			"request": "launch",
-			"name": "Launch Chrome against localhost",
-			"url": "http://localhost:5500",
-			"webRoot": "${workspaceFolder}"
+			"program": "${workspaceFolder}/Grokking_coding_interview/sliding_windows/longest_substring_with_K_distinct_characters.js"
 		}
 	]
 }
