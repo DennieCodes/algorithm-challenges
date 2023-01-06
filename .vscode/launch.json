@@ -9,7 +9,7 @@
 			"request": "launch",
 			"name": "Launch Program",
 			"skipFiles": ["<node_internals>/**"],
-			"program": "${workspaceFolder}/Grokking_coding_interview/sliding_windows/longest_substring_with_K_distinct_characters.js"
+			"program": "${workspaceFolder}/index.js"
 		}
 	]
 }

@@ -40,12 +40,15 @@
 // If it's not a palindrome then continue the iteration until it is and return that word
 
 const youCompleteMe = (str) => {
-	for (let i = 1; i <= str.length; i++) {
-		if (str.slice(i) === [...str.slice(i)].reverse().join('')) {
-			return str + [...str.slice(0, i)].reverse().join('');
+	let result = str;
+
+	for (let i = 0; i < str.length; i++) {
+		result = result.concat(str[i]);
+		if (result === result.split('').reverse().join('')) {
+			return result;
 		}
 	}
 };
 
-const palindrome = youCompleteMe('aBaBY');
+const palindrome = youCompleteMe('aaB');
 console.log(palindrome);
