@@ -30,35 +30,27 @@ Pseudocode
 */
 
 const make_squares = (arr) => {
-  const returnArray = Array(arr.length).fill(0);
+	const n = arr.length;
+	let squares = new Array(n).fill(0);
+	let highestSquareIdx = n - 1;
+	let left = 0,
+		right = n - 1;
 
-  let leftPointer = 0,
-    rightPointer = arr.length - 1;
+	while (left <= right) {
+		let leftSquare = arr[left] * arr[left];
+		let rightSquare = arr[right] * arr[right];
 
-  do {
-    const leftSquared = arr[leftPointer];
-    const rightSquared = arr[rightPointer];
+		if (leftSquare > rightSquare) {
+			squares[highestSquareIdx] = leftSquare;
+			left += 1;
+		} else {
+			squares[highestSquareIdx] = rightSquare;
+			right -= 1;
+		}
+		highestSquareIdx -= 1;
+	}
 
-    if (leftSquared > rightSquared) {
-      returnArray.unshift(leftSquared * leftSquared);
-      returnArray.unshift(rightSquared * rightSquared);
-    } else if (rightSquared > leftSquared) {
-      returnArray.unshift(rightSquared * rightSquared);
-      returnArray.unshift(leftSquared * leftSquared);
-    } else if (leftSquared === rightSquared) {
-      returnArray.unshift(rightSquared * rightSquared);
-      returnArray.unshift(leftSquared * leftSquared);
-    } else if (leftPointer === rightPointer) {
-      returnArray.unshift(leftSquared * leftSquared);
-      return returnArray;
-    }
-
-    leftPointer++;
-    rightPointer--;
-    console.log(`Left: ${leftPointer}, Right: ${rightPointer}`);
-  } while (returnArray.length !== arr.length);
-
-  return returnArray;
+	return squares;
 };
 
 console.log(make_squares([-2, -1, 0, 2, 3]));
