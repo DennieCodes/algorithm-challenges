@@ -1,64 +1,51 @@
-// We have a big list having values fom 1 to n, occurring only once but unordered with an unknown amount of missing values. The number n will be considered the maximum value of the array.
+// You are given an array(list) strarr of strings and an integer k. Your task is to return the first longest string consisting of k consecutive strings taken in the array.
 
-// We have to output the missing numbers sorted by value. Example:
+// Examples:
+// strarr = ["tree", "foling", "trashy", "blue", "abcdef", "uvwxyz"], k = 2
 
-// [8, 10, 11, 7, 3, 15, 6, 1, 14, 5, 12]  ---> [2, 4, 9, 13]
-// The number 1 should be in the input array, if it's not present in the input array, should be included in the results. See the example below.
+// Concatenate the consecutive strings of strarr by 2, we get:
 
-// [8, 10, 11, 7, 3, 15, 6, 14, 5, 12]  ---> [1, 2, 4, 9, 13]
-// As this is a hardcore version, the tests are prepared for only algorithms of time complexityO(n) to pass. As the speed of each language are different, we will have different maximum lengths for the input.
+// treefoling   (length 10)  concatenation of strarr[0] and strarr[1]
+// folingtrashy ("      12)  concatenation of strarr[1] and strarr[2]
+// trashyblue   ("      10)  concatenation of strarr[2] and strarr[3]
+// blueabcdef   ("      10)  concatenation of strarr[3] and strarr[4]
+// abcdefuvwxyz ("      12)  concatenation of strarr[4] and strarr[5]
 
-// Features of the random tests:
-// 1000 <= length of arrays <= 30.000.000
-// 1 <= amount of missing numbers <= 10
-// amount of tests: 20
+// Two strings are the longest: "folingtrashy" and "abcdefuvwxyz".
+// The first that came is "folingtrashy" so
+// longest_consec(strarr, 2) should return "folingtrashy".
 
-// input: an array of unsorted numbers from 1 to n.  n is the largest number in the array
-// output: an array of the missing numbers from the input
+// In the same way:
+// longest_consec(["zone", "abigail", "theta", "form", "libe", "zas", "theta", "abigail"], 2) --> "abigailtheta"
+// n being the length of the string array, if n = 0 or k > n or k <= 0 return "" (return Nothing in Elm, "nothing" in Erlang).
 
-// since arrays have a numbered indexing system we can use that to sort our array in place
-// from the start, compare that element's value with value of it's index
-// if it's not the same then take the current element and put it in it's respective index position
-// note: what happens if that index position is larger than the current array
+// input: an array of strings, a k number of array elements to add together
+// output: a string made of the longest combination of elements from array of k elements, if there are more than
+//         one string of the longest length return the first one.
+// note: if arr.length = 0, k is greater than arr.length, k <= 0, then return ""
 
-// [8, 10, 11, 7, 3, 15, 6, 14, 5, 12]  ---> [1, 2, 4, 9, 13]
-//                           _
-// [14, 10, 11, 7, 3, 15, 6, 8, 5, 12]
-// [14, 10, 11, 7, 3, 15, 6, 8, 5, 12, , , , 14]
-// [10, 11, 7, 3, 15, 6, 8, 5, 12, , , , 14]
+// pseudocode
+// 1. iterate across the input array, stopping k length from end
+//    note: we stop k length since we're collecting strings of size k
+// 2. collect strings of k length from each element position
+// 3. compare longest string at the end (or first of longest) and return
 
 // FUNCTION
-const missNumsFinder = (arr) => {
-	let i = 0;
-	let maxValue = arr.length;
-
-	while (i < 20) {
-		// maxValue = Math.max(maxValue, arr[i]);
-
-		if (arr[i] !== arr[arr[i]]) {
-			if (arr[arr[i]] === undefined) {
-				arr[arr[i]] = arr[i];
-				arr.splice(i, 1);
-			} else {
-				let temp = arr[arr[i]];
-				arr[arr[i]] = arr[i];
-				arr[i] = temp;
-				// [arr[i], arr[arr[i]]] = [arr[arr[i]], arr[i]];
-			}
-
-			// console.log(arr);
-			// i++;
-		} else {
-			i++;
-		}
-
-		if (i > 20) exit;
+const consecutiveStrings = (strarr, k) => {
+	if (strarr.length === 0 || k > strarr.length || k <= 0) {
+		return '';
 	}
+
+	let result = strarr.map((ele, idx, arr) => {
+		return arr.slice(idx, idx + k).join('');
+	});
+
+	return result.reduce((acc, cur) => (cur.length > acc.length ? cur : acc));
 };
 
-// ASSERTION
+// ASSERTIONS
 const assertToBeEquals = (actual, expected, testName) => {
-	if (JSON.stringify(actual) === JSON.stringify(expected)) {
+	if (actual === expected) {
 		console.log('passed');
 	} else {
 		console.log(`FAILED [${testName}] Expected ${actual}, to be ${expected}`);
@@ -66,10 +53,53 @@ const assertToBeEquals = (actual, expected, testName) => {
 };
 
 // TEST CASE
-const actual = missNumsFinder([8, 10, 11, 7, 3, 15, 6, 1, 14, 5, 12]);
-const expected = [1, 2, 4, 9, 13];
-assertToBeEquals(
-	actual,
-	expected,
-	'It should return array of missing numbers from input array'
+const testName =
+	'It should return the longest string combo on k number of elements';
+// const actual = consecutiveStrings(["tree", "foling", "trashy", "blue", "abcdef", "uvwxyz"], 2);
+// const expected = "folingtrashy";
+// assertToBeEquals(actual, expected, 'It should return the longest string combo on k number of elements');
+
+let actual = consecutiveStrings(
+	['zone', 'abigail', 'theta', 'form', 'libe', 'zas', 'theta', 'abigail'],
+	2
 );
+let expected = 'abigailtheta';
+assertToBeEquals(actual, expected, testName);
+
+// let actual = consecutiveStrings(
+// 	[
+// 		'ejjjjmmtthh',
+// 		'zxxuueeg',
+// 		'aanlljrrrxx',
+// 		'dqqqaaabbb',
+// 		'oocccffuucccjjjkkkjyyyeehh',
+// 	],
+// 	1
+// );
+// let expected = 'oocccffuucccjjjkkkjyyyeehh';
+// assertToBeEquals(actual, expected, testName);
+
+// let actual = consecutiveStrings(
+// 	[
+// 		'ejjjjmmtthh',
+// 		'zxxuueeg',
+// 		'aanlljrrrxx',
+// 		'dqqqaaabbb',
+// 		'oocccffuucccjjjkkkjyyyeehh',
+// 	],
+// 	1
+// );
+// let expected = 'oocccffuucccjjjkkkjyyyeehh';
+// assertToBeEquals(actual, expected, testName);
+
+// let actual = consecutiveStrings(
+// 	[
+// 		'itvayloxrp',
+// 		'wkppqsztdkmvcuwvereiupccauycnjutlv',
+// 		'vweqilsfytihvrzlaodfixoyxvyuyvgpck',
+// 	],
+// 	2
+// );
+// let expected =
+// 	'wkppqsztdkmvcuwvereiupccauycnjutlvvweqilsfytihvrzlaodfixoyxvyuyvgpck';
+// assertToBeEquals(actual, expected, testName);
