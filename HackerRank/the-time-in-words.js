@@ -93,7 +93,7 @@ function timeInWords(h, m) {
 			if (remainder === 20) {
 				return `twenty to ${single[h]}`;
 			}
-			return `twenty ${single[remainder - 21]} to ${single[h]}`;
+			return `twenty ${single[remainder - 21]} minutes to ${single[h]}`;
 		} else if (remainder > 10) {
 			minute = teens[remainder - 11];
 			return `${minute} minutes to ${single[h]}`;
