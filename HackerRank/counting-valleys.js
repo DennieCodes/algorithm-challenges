@@ -42,7 +42,6 @@ function countingValleys(steps, path) {
 	let flag = false;
 	let valleys = 0;
 	let level = 0;
-	let walk = path.split('');
 
 	path.split('').forEach((ele) => {
 		ele === 'U' ? level++ : level--;
@@ -58,12 +57,6 @@ function countingValleys(steps, path) {
 			flag = false;
 		}
 	});
-
-	// for (let i = 0; i < steps - 1; i++) {
-	// 	walk[i] === 'U' ? level++ : level--;
-
-	// }
-
 	return valleys;
 }
 
