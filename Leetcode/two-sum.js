@@ -1,4 +1,4 @@
-/* 
+/*
 
 Given an array of integers, return indices of the two numbers such that they add up to a specific target.
 
@@ -13,12 +13,12 @@ return [0, 1].
 
 */
 
-var twoSum = function(nums, target) {
-  for (let i = 0; i < nums.length; i++) {
-  let matchValue = nums.indexOf(target - nums[i], i+1);
-  
-  if(matchValue !== -1) {
-    return [i, matchValue];
-  }
-}
+var twoSum = function (nums, target) {
+	for (let i = 0; i < nums.length; i++) {
+		let matchValue = nums.indexOf(target - nums[i], i + 1);
+
+		if (matchValue !== -1) {
+			return [i, matchValue];
+		}
+	}
 };

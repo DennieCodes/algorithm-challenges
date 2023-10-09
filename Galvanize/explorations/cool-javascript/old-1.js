@@ -1,0 +1,1 @@
+var IMPORTANT_VALUE = 100;
