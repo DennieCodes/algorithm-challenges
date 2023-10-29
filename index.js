@@ -1,102 +1,98 @@
 /*
 
-Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+You are given the heads of two sorted linked lists list1 and list2.
 
-An input string is valid if:
+Merge the two lists into one sorted list. The list should be made by splicing together the nodes of the first two lists.
 
-Open brackets must be closed by the same type of brackets.
-Open brackets must be closed in the correct order.
-Every close bracket has a corresponding open bracket of the same type.
-
+Return the head of the merged linked list.
 
 Example 1:
+Input: list1 = [1,2,4], list2 = [1,3,4]
+Output: [1,1,2,3,4,4]
 
-Input: s = "()"
-Output: true
 Example 2:
+Input: list1 = [], list2 = []
+Output: []
 
-Input: s = "()[]{}"
-Output: true
 Example 3:
-
-Input: s = "(]"
-Output: false
-
+Input: list1 = [], list2 = [0]
+Output: [0]
 
 Constraints:
+The number of nodes in both lists is in the range [0, 50].
+-100 <= Node.val <= 100
+Both list1 and list2 are sorted in non-decreasing order.
 
-1 <= s.length <= 104
-s consists of parentheses only '()[]{}'.
+input: two sorted lists
+output: the head of the merged linked list
 
-input: a string containing characters of open/close brackets
-output: true or false if every open bracket is closed by it's corresponding one in correct order
-note: what to do with empty array or odd # of array items
-
-1. iterate over the string as we do so create a stack (array) which we'll use for comparison
-2. create a hash map of the opening brackets to save on having to write numerous if statements
-3. on each iteration, check to see if the current item is a closing parenthesis (hasOwnProperty)
-4. if so then compare look at the end of the stack to see if there's a corresponding opening parenthesis
-5. if they don't match then return false;
-
-
-"()[]{}"
 */
 
-var isValid = function (s) {
-	if (s.length % 2 !== 0) return false;
-	const stack = [];
-	const bracs = {
-		')': '(',
-		'}': '{',
-		']': '[',
-	};
+function ListNode(val, next) {
+	this.val = val === undefined ? 0 : val;
+	this.next = next === undefined ? null : next;
+}
 
-	for (item of s) {
-		if (bracs.hasOwnProperty(item)) {
-			// if item is a closing parenthesis
-			if (stack.length && stack[stack.length - 1] === bracs[item]) {
-				stack.pop();
-			} else {
-				return false;
-			}
-		} else {
-			stack.push(item); // if item is an opening parenthesis then add to stack
-		}
+// Helper function
+const returnLinkedList = (arr) => {
+	if (!arr.length) return null;
+
+	const nodes = arr.map((ele) => new ListNode(ele));
+
+	for (let i = 0; i < nodes.length - 1; i++) {
+		nodes[i].next = nodes[i + 1];
 	}
-	return stack.length === 0;
+
+	return nodes[0];
 };
 
-/* Super fast solution on LeetCode
-==================================
+// Iterate over both lists while both are valid (not null)
+// on each iteration compare values of each node and add lower value to head
+// on which value was lower, set that node to equal the next node that it holds
+// when this iteration ends it means one of the nodes is null
+// if either null is not null then set then set next
 
-var isValid = function(s) {
-    const brackets = [];
+var mergeTwoLists = function (list1, list2) {
+	const dummy = new ListNode();
+	let tail = dummy;
 
-    for (let c of s) {
-        if (c === '(' || c === '{' || c === '[') {
-            brackets.push(c);
-        } else {
-            if (brackets.length === 0) {
-                return false; // There's no matching open bracket.
-            }
+	while (list1 && list2) {
+		if (list1.val < list2.val) {
+			tail.next = list1;
+			list1 = list1.next;
+		} else {
+			tail.next = list2;
+			list2 = list2.next;
+		}
+		tail = tail.next;
+	}
 
-            const openBracket = brackets.pop();
+	if (list1) tail.next = list1;
+	if (list2) tail.next = list2;
 
-            if ((c === ')' && openBracket !== '(') || (c === '}' && openBracket !== '{') || (c === ']' && openBracket !== '[')) {
-                return false; // Mismatched closing bracket.
-            }
-        }
-    }
-
-    return brackets.length === 0; // All open brackets should be closed.
+	return dummy.next;
 };
 
-*/
+// More efficient solution on LeetCode using recursion
+var bestMergeTwoLists = function (l1, l2) {
+	if (!l1) return l2;
+	else if (!l2) return l1;
+	else if (l1.val <= l2.val) {
+		l1.next = mergeTwoLists(l1.next, l2);
+		return l1;
+	} else {
+		l2.next = mergeTwoLists(l1, l2.next);
+		return l2;
+	}
+};
 
-// let result = isValid('()[]{}');
-// let result = isValid('(]');
-// let result = isValid('()');
-// let result = isValid('[');
-let result = isValid('((');
-// let result = isValid('');
-console.log(result);
+const list1 = returnLinkedList([1, 2, 4, 6]);
+const list2 = returnLinkedList([1, 3, 4, 5]);
+let result = bestMergeTwoLists(list1, list2);
+
+// console.log(result);
+
+while (result) {
+	console.log(result.val);
+	result = result.next;
+}
