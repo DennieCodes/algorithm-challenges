@@ -64,7 +64,7 @@ var isPalindrome = function (s) {
 	}
 
 	let start = 0;
-	let end = result.length - 1;
+	let end = s.length - 1;
 
 	while (start < end) {
 		if (result[start] === result[end]) {
@@ -78,16 +78,7 @@ var isPalindrome = function (s) {
 	return true;
 };
 
-// Neet short version on LeetCode
-var NeetisPalindrome = function (s) {
-	let string = s.toLowerCase().replace(/[^a-z0-9]/g, '');
-	return string
-		.split('')
-		.slice(0, Math.floor(string.length / 2))
-		.every((letter, index) => letter === string[string.length - 1 - index]);
-};
-
 const data = ['A man, a plan, a canal: Panama', 'race a car', ' '];
 
-const result = isPalindrome(data[1]);
+const result = isPalindrome(data[0]);
 console.log(result);
