@@ -35,8 +35,8 @@ const result = isAnagram(data[0]);
 
 console.log(result);
 
-const obj = { a: 10, b: 20 };
+// const obj = { a: 10, b: 20 };
 
-for (let i in obj) {
-	console.log(i, obj[i]);
-}
+// for (let i in obj) {
+// 	console.log(i, obj[i]);
+// }
