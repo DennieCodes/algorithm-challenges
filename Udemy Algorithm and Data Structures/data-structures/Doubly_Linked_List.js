@@ -14,19 +14,13 @@ class DoublyLinkedList {
 	}
 
 	push(val) {
-		// create a new node
 		const newNode = new Node(val);
 
-		// if head is null then the doubly linked list is being initialized
-		// set the head and tail to the new node
 		if (!this.head) {
 			this.head = newNode;
 			this.tail = newNode;
 		} else {
-			// else, set the tail.next to the new node and tail to new node
-			// set a temp pointer to set the new node point back to previous tail node
 			this.tail.next = newNode;
-			// const temp = this.tail;
 			newNode.prev = this.tail;
 			this.tail = newNode;
 		}
