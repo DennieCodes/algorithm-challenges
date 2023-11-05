@@ -24,25 +24,48 @@ Constraints:
 // input: array of numbers
 // output: integer of the maximum profit that can be achieved buying and selling
 
+// buy pointer to 0, sell pointer to 1, also maxProfit set to 0
+// iterate over the array until sell pointer reaches the end
+// if buy value is greater than sell then set buy to sell position
+// otherwise calculate the current profit and compare against maxProfit
+// move the sell pointer one to the right
+
 */
 
-var maxProfit = function (prices) {
-	let l = 0;
-	let r = 1;
-	let maxProfit = 0;
+const maxProfit = (prices) => {
+	let buy = 0,
+		sell = 1,
+		maxProfit = 0;
 
-	while (r < prices.length) {
-		if (prices[l] > prices[r]) {
-			l = r;
+	while (sell < prices.length) {
+		if (prices[buy] > prices[sell]) {
+			buy = sell;
 		} else {
-			let profit = prices[r] - prices[l];
+			const profit = prices[sell] - prices[buy];
 			maxProfit = maxProfit > profit ? maxProfit : profit;
 		}
-		r++;
+		sell++;
 	}
-
 	return maxProfit;
 };
+
+// var maxProfit = function (prices) {
+// 	let l = 0;
+// 	let r = 1;
+// 	let maxProfit = 0;
+
+// 	while (r < prices.length) {
+// 		if (prices[l] > prices[r]) {
+// 			l = r;
+// 		} else {
+// 			let profit = prices[r] - prices[l];
+// 			maxProfit = maxProfit > profit ? maxProfit : profit;
+// 		}
+// 		r++;
+// 	}
+
+// 	return maxProfit;
+// };
 
 const data = [
 	[7, 1, 5, 3, 6, 4],
